@@ -50,6 +50,7 @@
                 android:text="@string/enter_name"/>
 
             <EditText
+                android:id="@+id/nameInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="13dp"
@@ -63,6 +64,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="20dp"/>
             <Button
+                android:id="@+id/startBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
