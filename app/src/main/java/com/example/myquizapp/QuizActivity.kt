@@ -41,7 +41,7 @@ class QuizActivity : ComponentActivity() {
 
         val question = questionsList[currentQuestionIndex]
 
-        progressBar?.progress = currentQuestionIndex
+        progressBar?.progress = currentQuestionIndex + 1
         progressBarText?.text = "${currentQuestionIndex + 1}/${questionsList.size}"
 
         questionImage?.setImageResource(question.image)
