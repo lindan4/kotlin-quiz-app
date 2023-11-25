@@ -12,4 +12,6 @@
     <color name="primaryColorDark">#0D0630</color>
     <color name="primaryColorVariant">#B5BAD0</color>
     <color name="secondaryColor">#7389AE</color>
+
+    <color name="defaultOptionTextColor">#7A8089</color>
 </resources>
