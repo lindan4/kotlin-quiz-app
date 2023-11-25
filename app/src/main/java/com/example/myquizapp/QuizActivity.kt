@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 import java.util.ArrayList
@@ -57,6 +58,17 @@ class QuizActivity : ComponentActivity(), View.OnClickListener {
         fourthOption?.setOnClickListener(this)
 
         submitButton = findViewById(R.id.submitButton)
+
+        submitButton?.setOnClickListener {
+            if (correctAnswerIndex == selectedAnswerIndex) {
+                // Navigate to next question
+                setQuestion(++currentQuestionIndex)
+            }
+            else {
+                // Show message indicating that answer is incorrect
+                Toast.makeText(this, "Incorrect answer. Please try again.", Toast.LENGTH_LONG).show()
+            }
+        }
 
         setQuestion(currentQuestionIndex)
     }
