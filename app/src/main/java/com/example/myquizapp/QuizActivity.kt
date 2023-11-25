@@ -2,21 +2,18 @@ package com.example.myquizapp
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
-import java.util.ArrayList
 
 class QuizActivity : ComponentActivity(), View.OnClickListener {
 
-
-
-    private val optionTextViews: ArrayList<TextView> = ArrayList<TextView>()
+    private val optionTextViews: ArrayList<TextView> = ArrayList()
 
     private var currentQuestionIndex = 0
 
@@ -60,13 +57,24 @@ class QuizActivity : ComponentActivity(), View.OnClickListener {
         submitButton = findViewById(R.id.submitButton)
 
         submitButton?.setOnClickListener {
+            val selectedTextView: TextView = optionTextViews[selectedAnswerIndex - 1]
             if (correctAnswerIndex == selectedAnswerIndex) {
                 // Navigate to next question
-                setQuestion(++currentQuestionIndex)
+                selectedTextView.setBackgroundResource(R.drawable.correct_option_border_bg)
+                selectedTextView.setTextColor(ContextCompat.getColor(this, R.color.white))
+                submitButton?.isEnabled = false
+                submitButton?.isClickable = false
+                submitButton?.alpha = 0.5F
+
+                Handler().postDelayed({
+                    setQuestion(++currentQuestionIndex)
+                }, 2000)
+
+
             }
             else {
-                // Show message indicating that answer is incorrect
-                Toast.makeText(this, "Incorrect answer. Please try again.", Toast.LENGTH_LONG).show()
+                selectedTextView.setBackgroundResource(R.drawable.incorrect_option_border_bg)
+                selectedTextView.setTextColor(ContextCompat.getColor(this, R.color.white))
             }
         }
 
@@ -81,7 +89,7 @@ class QuizActivity : ComponentActivity(), View.OnClickListener {
         thirdOption?.let { optionTextViews.add(2, it) }
         fourthOption?.let { optionTextViews.add(3, it) }
 
-        submitButton?.alpha = 0.5F
+        submitButton?.alpha = 1F
     }
 
 
