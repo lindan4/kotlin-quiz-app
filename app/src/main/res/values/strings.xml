@@ -4,4 +4,6 @@
     <string name="enter_name">Please enter your name</string>
     <string name="what_country_does_this_flag_belong_to">What country does this flag belong to?</string>
     <string name="image_content_description">Image for question</string>
+    <string name="title_activity_result">ResultActivity</string>
+    <string name="quiz_completion">Congratulations on completing the quiz!!!</string>
 </resources>

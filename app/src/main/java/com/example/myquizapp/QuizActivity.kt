@@ -1,5 +1,6 @@
 package com.example.myquizapp
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
@@ -14,6 +15,8 @@ import androidx.core.content.ContextCompat
 class QuizActivity : ComponentActivity(), View.OnClickListener {
 
     private val optionTextViews: ArrayList<TextView> = ArrayList()
+
+    private var userName: String? = null
 
     private var currentQuestionIndex = 0
 
@@ -38,6 +41,8 @@ class QuizActivity : ComponentActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
+        userName = intent.getStringExtra(Constants.usernameStringKey)
+
         questionImage = findViewById(R.id.questionImg)
 
         progressBar = findViewById(R.id.progressBar)
@@ -58,6 +63,8 @@ class QuizActivity : ComponentActivity(), View.OnClickListener {
 
         submitButton?.setOnClickListener {
             val selectedTextView: TextView = optionTextViews[selectedAnswerIndex - 1]
+
+
             if (correctAnswerIndex == selectedAnswerIndex) {
                 // Navigate to next question
                 selectedTextView.setBackgroundResource(R.drawable.correct_option_border_bg)
@@ -65,10 +72,21 @@ class QuizActivity : ComponentActivity(), View.OnClickListener {
                 submitButton?.isEnabled = false
                 submitButton?.isClickable = false
                 submitButton?.alpha = 0.5F
+                if (currentQuestionIndex + 1 < questionsList.size) {
+                    Handler().postDelayed({
+                        setQuestion(++currentQuestionIndex)
+                    }, 2000)
+                }
+                else {
+                    // Show congratulations page with finish button. When finish button is pressed, navigate back to initial page.
 
-                Handler().postDelayed({
-                    setQuestion(++currentQuestionIndex)
-                }, 2000)
+                    val resultIntent: Intent = Intent(this, ResultActivity::class.java)
+                    resultIntent.putExtra(Constants.usernameStringKey, userName)
+
+                    startActivity(resultIntent)
+                    finish()
+                }
+
 
 
             }
